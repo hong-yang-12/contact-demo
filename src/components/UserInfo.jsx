@@ -1,13 +1,17 @@
 import Cookies from 'js-cookie';
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { useGetSingleContactQuery } from '../redux/api/contactApi';
+import { useGetProfilesQuery, useGetSingleContactQuery } from '../redux/api/contactApi';
 import {AiOutlineUser, AiOutlineMail, AiOutlinePhone, AiOutlineHome} from "react-icons/ai"
 
 const UserInfo = () => {
     const {id} = useParams();
     const token = Cookies.get("token");
     const {data} = useGetSingleContactQuery({id,token})
+    
+    const imgUrl = data?.contact?.photo;
+    const img = useGetProfilesQuery({id,token,imgUrl})
+    console.log(img);
     console.log(data);
   return (
     <div className='flex justify-center items-center h-screen'>

@@ -38,11 +38,19 @@ export const contactApi = createApi({
       }),
       providesTags: ["contact"],
     }),
+    getProfiles: builder.query({
+      query: ({ id, token,imgUrl }) => ({
+        url: `/user-profile`,
+        headers: { authorization: `Bearer ${token}` },
+      }),
+      providesTags: ["contact"],
+    }),
   }),
 });
 export const {
   useGetContactQuery,
   useCreateContactMutation,
   useDeleteContactMutation,
-  useGetSingleContactQuery
+  useGetSingleContactQuery,
+  useGetProfilesQuery
 } = contactApi;

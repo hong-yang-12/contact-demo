@@ -13,12 +13,13 @@ const Login = () => {
   const [login, { isLoading, isLoadingDone }] = useLoginMutation();
   const form = useForm({
     initialValues: {
-      email: "nyan12@gmail.com",
-      password: "nyan1212",
+      email: "admin@gmail.com",
+      password: "admin123",
     },
 
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      password: (value) => (value.length > 7 ? null : "Password must has 8 or more characters"),
     },
   });
   const dispatch = useDispatch();

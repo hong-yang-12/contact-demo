@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   contacts: [],
   searchTerm: "",
+  selectedImage : "",
 };
 
 export const contactSlice = createSlice({
@@ -15,6 +16,9 @@ export const contactSlice = createSlice({
     setSearchTerm: (state, { payload }) => {
       state.searchTerm = payload;
     },
+    setSelectedImage:(state,{payload}) => {
+      state.selectedImage = payload;
+    }
   },
 });
 

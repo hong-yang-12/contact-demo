@@ -6,7 +6,7 @@ import {
   useDeleteContactMutation,
   useGetContactQuery,
 } from "../redux/api/contactApi";
-import { BsTrash3, BsFillPersonLinesFill } from "react-icons/bs";
+import { BsTrash3, BsFillPersonLinesFill, BsThreeDots } from "react-icons/bs";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { addContacts, setSearchTerm } from "../redux/services/contactSlice";
@@ -56,7 +56,22 @@ const ContactTable = () => {
     ?.map((contact) => {
       return (
         <tr key={contact?.id}>
-          <td>{contact?.name}</td>
+          <td>
+            <div className="flex gap-1">
+              <img
+                className="rounded-full bg-cover bg-center"
+                src={
+                  data?.contact?.photo === null
+                    ? "https://cdn-icons-png.flaticon.com/512/21/21104.png"
+                    : data?.contact?.photo
+                }
+                width={"30px"}
+                height={"30px"}
+                alt=""
+              />
+              <p>{contact?.name}</p>
+            </div>
+          </td>
           <td>{contact?.email}</td>
           <td>{contact?.phone}</td>
           <td>{contact?.address}</td>
@@ -98,6 +113,8 @@ const ContactTable = () => {
       );
     });
 
+  const showUserInfo = (arg) => {};
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -107,18 +124,23 @@ const ContactTable = () => {
   }
   return (
     <div className=" w-[660px]">
-        <Table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Address</th>
-            </tr>
-          </thead>
-          <tbody>{row}</tbody>
-        </Table>
-      </div>
+      <Table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>
+              <Button variant="subtle" color="cyan">
+                <BsThreeDots />
+              </Button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>{row}</tbody>
+      </Table>
+    </div>
   );
 };
 

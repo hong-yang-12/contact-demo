@@ -13,6 +13,7 @@ const Dashboard = () => {
         <ContactTable />
         <div className=" w-96 flex justify-center items-center">
           <p>user info will show here</p>
+          {/* <UserInfo/> */}
         </div>
       </div>
     </div>
