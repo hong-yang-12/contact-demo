@@ -39,11 +39,20 @@ export const contactApi = createApi({
       providesTags: ["contact"],
     }),
     getProfiles: builder.query({
-      query: ({ id, token,imgUrl }) => ({
+      query: ({ id, token, imgUrl }) => ({
         url: `/user-profile`,
         headers: { authorization: `Bearer ${token}` },
       }),
       providesTags: ["contact"],
+    }),
+    editContact: builder.mutation({
+      query: ({id,token,contact}) => ({
+        url: `/contact/${id}`,
+        method: "PATCH",
+        headers: { authorization: `Bearer ${token}` },
+        body: contact,
+      }),
+      invalidatesTags: ["contact"],
     }),
   }),
 });
@@ -52,5 +61,6 @@ export const {
   useCreateContactMutation,
   useDeleteContactMutation,
   useGetSingleContactQuery,
-  useGetProfilesQuery
+  useGetProfilesQuery,
+  useEditContactMutation,
 } = contactApi;

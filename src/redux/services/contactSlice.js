@@ -18,9 +18,9 @@ export const contactSlice = createSlice({
     },
     setSelectedImage:(state,{payload}) => {
       state.selectedImage = payload;
-    }
+    },
   },
 });
 
-export const { addContacts , setSearchTerm } = contactSlice.actions;
+export const { addContacts , setSearchTerm,setSelectedImage } = contactSlice.actions;
 export default contactSlice.reducer;

@@ -15,7 +15,7 @@ const UserInfo = () => {
     console.log(data);
   return (
     <div className='flex justify-center items-center h-screen'>
-        <div className='flex flex-col gap-5 p-7 shadow-lg rounded'>
+        <div className='flex flex-col gap-10 p-20 shadow-lg rounded'>
             <img className='rounded-full' src={data?.contact?.photo === null ? "https://cdn-icons-png.flaticon.com/512/21/21104.png" : data?.contact?.photo} width={"150px"} alt="" />
             <p className='flex items-center gap-2'><AiOutlineUser/> <span>{data?.contact?.name}</span></p>
             <p className='flex items-center gap-2'><AiOutlinePhone/> <span>{data?.contact?.phone}</span></p>

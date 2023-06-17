@@ -1,20 +1,27 @@
 import { Input, Loader, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import Cookies from "js-cookie";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import {
-  AiOutlineUser,
+  AiOutlineHome,
   AiOutlineMail,
   AiOutlinePhone,
-  AiOutlineHome,
+  AiOutlineUser,
   AiFillAccountBook,
-  AiOutlineFileDone,
 } from "react-icons/ai";
+import { BsPencilSquare } from "react-icons/bs";
 import { LuImagePlus } from "react-icons/lu";
-import { useCreateContactMutation } from "../redux/api/contactApi";
-import Cookies from "js-cookie";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  useEditContactMutation,
+  useGetSingleContactQuery,
+} from "../redux/api/contactApi";
 
-const CreateContact = () => {
+const EditContact = () => {
+  const { id } = useParams();
+  const token = Cookies.get("token");
+
   const form = useForm({
     initialValues: {
       name: "",
@@ -28,12 +35,16 @@ const CreateContact = () => {
       phone: (value) => (value.length > 1 ? null : "phone number is required."),
     },
   });
-  const [createContact, { isLoading }] = useCreateContactMutation();
-  const token = Cookies.get("token");
+
+  const [editContact, { isLoading }] = useEditContactMutation();
+  const { data } = useGetSingleContactQuery({ id, token });
+  useEffect(() => {
+    form.setValues(data?.contact);
+  }, [data]);
+
   const nav = useNavigate();
 
   const [selectedImage, setSelectedImage] = useState(null);
-
   const handleCustomImageClick = () => {
     // Trigger click on hidden file input element
     document.getElementById("imgInput").click();
@@ -43,13 +54,13 @@ const CreateContact = () => {
     const file = event.target.files[0];
     setSelectedImage(file);
   };
-
   return (
     <div className="flex justify-center items-center bg-transparent h-screen border">
       <form
         onSubmit={form.onSubmit(async (values) => {
           try {
-            const { data } = await createContact({ token, contact: values });
+            console.log(values);
+            const { data } = await editContact({ id, token, contact: values });
             console.log(data);
 
             if (data?.success) {
@@ -63,8 +74,9 @@ const CreateContact = () => {
       >
         <div className="flex justify-evenly">
           <div className="flex flex-col gap-5 w-96 p-7">
-            <h2 className=" text-cyan-900 font-semibold text-center text-2xl">
-              Create a contact
+            <h2 className=" text-cyan-900 font-semibold text-center text-2xl flex items-center gap-2">
+              <BsPencilSquare />
+              <span>Edit contact</span>
             </h2>
 
             <div
@@ -125,15 +137,22 @@ const CreateContact = () => {
                 {...form.getInputProps("address")}
               />
             </div>
-            
 
-            <button
-              type="submit"
-              disabled={isLoading && true}
-              className=" h-10 flex items-center justify-center rounded bg-cyan-600 text-white transition hover:bg-cyan-400 hover:text-cyan-950 px-4 py-1"
-            >
-              {isLoading ? <Loader color="cyan" size="xs" /> : "Create"}
-            </button>
+            <div className="flex gap-3">
+              <button
+                type="submit"
+                disabled={isLoading && true}
+                className=" h-10 flex items-center justify-center rounded bg-cyan-600 text-white transition hover:bg-cyan-400 hover:text-cyan-950 px-4 py-1"
+              >
+                {isLoading ? <Loader color="cyan" size="xs" /> : "Done"}
+              </button>
+
+              <Link to={"/"}>
+                <button className=" h-10 flex items-center justify-center rounded border border-cyan-600 text-cyan-600 transition hover:bg-cyan-600 hover:text-cyan-50 px-4 py-1">
+                  Back
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </form>
@@ -141,4 +160,4 @@ const CreateContact = () => {
   );
 };
 
-export default CreateContact;
+export default EditContact;

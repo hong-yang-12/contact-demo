@@ -1,20 +1,25 @@
-import { Loader, Table, Input, Menu, Button, rem } from "@mantine/core";
+import { Loader, Table, Menu, Button, Pagination } from "@mantine/core";
 import Cookies from "js-cookie";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   useDeleteContactMutation,
   useGetContactQuery,
 } from "../redux/api/contactApi";
-import { BsTrash3, BsFillPersonLinesFill, BsThreeDots } from "react-icons/bs";
+import {
+  BsTrash3,
+  BsFillPersonLinesFill,
+  BsPencilSquare,
+} from "react-icons/bs";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { addContacts, setSearchTerm } from "../redux/services/contactSlice";
+import { addContacts } from "../redux/services/contactSlice";
 
 const ContactTable = () => {
   const token = Cookies.get("token");
   const { data, isLoading } = useGetContactQuery(token);
   console.log(data?.contacts?.data);
+  const [activePage, setPage] = useState(1);
 
   const dispatch = useDispatch();
   const contacts = useSelector((state) => state.contactSlice.contacts);
@@ -59,7 +64,7 @@ const ContactTable = () => {
           <td>
             <div className="flex gap-1">
               <img
-                className="rounded-full bg-cover bg-center"
+                className="rounded-full bg-cover bg-center object-cover"
                 src={
                   data?.contact?.photo === null
                     ? "https://cdn-icons-png.flaticon.com/512/21/21104.png"
@@ -106,6 +111,15 @@ const ContactTable = () => {
                     </p>
                   </Menu.Item>
                 </Link>
+
+                <Link to={`/edit/${contact?.id}`}>
+                  <Menu.Item>
+                    <p className="flex items-center gap-2 text-yellow-500">
+                      <BsPencilSquare />
+                      Edit
+                    </p>
+                  </Menu.Item>
+                </Link>
               </Menu.Dropdown>
             </Menu>
           </td>
@@ -113,18 +127,16 @@ const ContactTable = () => {
       );
     });
 
-  const showUserInfo = (arg) => {};
-
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen w-full">
         <Loader color="cyan" size="xl" />
       </div>
     );
   }
   return (
-    <div className=" w-[660px]">
-      <Table>
+    <div className=" w-full px-5">
+      <Table className="mb-5" highlightOnHover>
         <thead>
           <tr>
             <th>Name</th>
@@ -133,13 +145,20 @@ const ContactTable = () => {
             <th>Address</th>
             <th>
               <Button variant="subtle" color="cyan">
-                <BsThreeDots />
+                Options
               </Button>
             </th>
           </tr>
         </thead>
         <tbody>{row}</tbody>
       </Table>
+      <Pagination
+        position="center"
+        value={activePage}
+        onChange={setPage}
+        total={5}
+        color="cyan"
+      />
     </div>
   );
 };
