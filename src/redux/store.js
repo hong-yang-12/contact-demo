@@ -3,6 +3,7 @@ import { authApi } from "./api/authApi";
 import { contactApi } from "./api/contactApi";
 import authSlice from "./services/authSlice";
 import contactSlice from "./services/contactSlice";
+import stateSlice from "./services/stateSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     [contactApi.reducerPath]: contactApi.reducer,
     authSlice: authSlice,
     contactSlice: contactSlice,
+    stateSlice: stateSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authApi.middleware, contactApi.middleware),

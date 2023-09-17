@@ -5,6 +5,7 @@ import { BsArrowRightCircle } from "react-icons/bs";
 import { LuHeartHandshake } from "react-icons/lu";
 import { useRegisterMutation } from "../redux/api/authApi";
 import { useForm } from "@mantine/form";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [register, { isLoading }] = useRegisterMutation();
@@ -29,6 +30,15 @@ const Register = () => {
             const { data } = await register(values);
             console.log(data);
             if (data?.success) {
+              Swal.fire({
+                toast: true,
+                position: "top-right",
+                icon: "success",
+                title: "Registered Successful",
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+              });
               nav("/login");
             }
           } catch (error) {

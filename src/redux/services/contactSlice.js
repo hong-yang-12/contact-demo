@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   contacts: [],
   searchTerm: "",
-  selectedImage : "",
+  selectedImage: "",
 };
 
 export const contactSlice = createSlice({
@@ -16,11 +16,12 @@ export const contactSlice = createSlice({
     setSearchTerm: (state, { payload }) => {
       state.searchTerm = payload;
     },
-    setSelectedImage:(state,{payload}) => {
+    setSelectedImage: (state, { payload }) => {
       state.selectedImage = payload;
     },
   },
 });
 
-export const { addContacts , setSearchTerm,setSelectedImage } = contactSlice.actions;
+export const { addContacts, setSearchTerm, setSelectedImage } =
+  contactSlice.actions;
 export default contactSlice.reducer;

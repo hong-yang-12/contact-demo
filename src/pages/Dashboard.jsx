@@ -9,7 +9,7 @@ const Dashboard = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex p-2">
+      <div className=" flex ">
         <Sidebar />
         <ContactTable />
         

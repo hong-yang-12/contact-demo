@@ -8,6 +8,7 @@ import { FaRegSmileBeam } from "react-icons/fa";
 import { useLoginMutation } from "../redux/api/authApi";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/services/authSlice";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [login, { isLoading, isLoadingDone }] = useLoginMutation();
@@ -19,7 +20,8 @@ const Login = () => {
 
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
-      password: (value) => (value.length > 7 ? null : "Password must has 8 or more characters"),
+      password: (value) =>
+        value.length > 7 ? null : "Password must has 8 or more characters",
     },
   });
   const dispatch = useDispatch();
@@ -34,6 +36,15 @@ const Login = () => {
             dispatch(addUser({ user: data?.user, token: data?.token }));
             console.log(data);
             if (data?.success) {
+              Swal.fire({
+                toast: true,
+                position: "top-right",
+                icon: "success",
+                title: "Login Successful",
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+              });
               nav("/");
             }
           } catch (error) {

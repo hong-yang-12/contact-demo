@@ -8,8 +8,8 @@ export const contactApi = createApi({
   tagTypes: ["contact"],
   endpoints: (builder) => ({
     getContact: builder.query({
-      query: (token) => ({
-        url: `/contact`,
+      query: ({ token, current_page }) => ({
+        url: `/contact?pageSize=10&page=${current_page}`,
         headers: { authorization: `Bearer ${token}` },
       }),
       providesTags: ["contact"],
@@ -38,15 +38,15 @@ export const contactApi = createApi({
       }),
       providesTags: ["contact"],
     }),
-    getProfiles: builder.query({
-      query: ({ id, token, imgUrl }) => ({
+    getProfile: builder.query({
+      query: (token) => ({
         url: `/user-profile`,
         headers: { authorization: `Bearer ${token}` },
       }),
       providesTags: ["contact"],
     }),
     editContact: builder.mutation({
-      query: ({id,token,contact}) => ({
+      query: ({ id, token, contact }) => ({
         url: `/contact/${id}`,
         method: "PATCH",
         headers: { authorization: `Bearer ${token}` },
@@ -61,6 +61,6 @@ export const {
   useCreateContactMutation,
   useDeleteContactMutation,
   useGetSingleContactQuery,
-  useGetProfilesQuery,
+  useGetProfileQuery,
   useEditContactMutation,
 } = contactApi;

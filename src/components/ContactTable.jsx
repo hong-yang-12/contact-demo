@@ -10,6 +10,7 @@ import {
   BsTrash3,
   BsFillPersonLinesFill,
   BsPencilSquare,
+  BsStar,
 } from "react-icons/bs";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,9 +18,18 @@ import { addContacts } from "../redux/services/contactSlice";
 
 const ContactTable = () => {
   const token = Cookies.get("token");
-  const { data, isLoading } = useGetContactQuery(token);
-  console.log(data?.contacts?.data);
-  const [activePage, setPage] = useState(1);
+  const [current_page, setCurrentPage] = useState(1);
+  const { data, error, isLoading } = useGetContactQuery({
+    token,
+    current_page,
+  });
+  // console.log(data?.contacts);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  // const nav = useNavigate();
 
   const dispatch = useDispatch();
   const contacts = useSelector((state) => state.contactSlice.contacts);
@@ -60,37 +70,53 @@ const ContactTable = () => {
     })
     ?.map((contact) => {
       return (
+        // onClick={() => {
+        //   nav(`/user/${contact?.id}`);
+        // }}
         <tr key={contact?.id}>
           <td>
-            <div className="flex gap-1">
-              <img
-                className="rounded-full bg-cover bg-center object-cover"
-                src={
-                  data?.contact?.photo === null
-                    ? "https://cdn-icons-png.flaticon.com/512/21/21104.png"
-                    : data?.contact?.photo
-                }
-                width={"30px"}
-                height={"30px"}
-                alt=""
-              />
+            <div className="flex gap-3">
+              {contact?.photo === null ? (
+                <div
+                  className={` w-8 h-8 flex justify-center items-center rounded-full text-background bg-placeholder p-2`}
+                >
+                  {contact?.name.charAt(0)}
+                </div>
+              ) : (
+                <img
+                  className="rounded-full bg-cover bg-center object-cover"
+                  src={
+                    contact?.photo === null
+                      ? "https://cdn-icons-png.flaticon.com/512/21/21104.png"
+                      : contact?.photo
+                  }
+                  width={"20px"}
+                  height={"20px"}
+                  alt="profile-img"
+                />
+              )}
+
               <p>{contact?.name}</p>
             </div>
           </td>
           <td>{contact?.email}</td>
           <td>{contact?.phone}</td>
           <td>{contact?.address}</td>
-          <td>
+          <td className="flex items-center gap-5">
+            <BsStar className="text-para" />
             <Menu
               width={200}
               shadow="md"
               position="bottom-end"
               transitionProps={{ transition: "rotate-left", duration: 150 }}
             >
-              <Menu.Target>
-                <Button variant="outline" color="cyan">
+              {/* <Button variant="outline" color="cyan">
                   ...
-                </Button>
+                </Button> */}
+              <Menu.Target>
+                <p className="px-2 py-1 cursor-pointer select-none border border-para bg-background text-para rounded">
+                  ...
+                </p>
               </Menu.Target>
 
               <Menu.Dropdown>
@@ -134,9 +160,16 @@ const ContactTable = () => {
       </div>
     );
   }
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen w-full">
+        Error: {error.message}
+      </div>
+    );
+  }
   return (
     <div className=" w-full px-5">
-      <Table className="mb-5" highlightOnHover>
+      <Table className="mb-28 " highlightOnHover>
         <thead>
           <tr>
             <th>Name</th>
@@ -154,10 +187,11 @@ const ContactTable = () => {
       </Table>
       <Pagination
         position="center"
-        value={activePage}
-        onChange={setPage}
-        total={5}
+        value={current_page}
+        onChange={handlePageChange}
+        total={10}
         color="cyan"
+        withEdges
       />
     </div>
   );
