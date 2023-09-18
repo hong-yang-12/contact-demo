@@ -85,11 +85,7 @@ const ContactTable = () => {
               ) : (
                 <img
                   className="rounded-full bg-cover bg-center object-cover"
-                  src={
-                    contact?.photo === null
-                      ? "https://cdn-icons-png.flaticon.com/512/21/21104.png"
-                      : contact?.photo
-                  }
+                  src={contact?.photo}
                   width={"20px"}
                   height={"20px"}
                   alt="profile-img"

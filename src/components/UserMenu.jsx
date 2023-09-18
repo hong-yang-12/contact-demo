@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { SlLogout } from "react-icons/sl";
 import { removeUser } from "../redux/services/authSlice";
 import Swal from "sweetalert2";
+import userImg from "../assets/me1-square.jpg"
 // import { useGetProfileQuery } from "../redux/api/contactApi";
 
 const UserMenu = () => {
@@ -44,7 +45,7 @@ const UserMenu = () => {
           <div className="flex items-center bg-cyan-300 px-3 py-1 rounded-full">
             {/* https://img.freepik.com/free-icon/user_318-159711.jpg */}
             <img
-              src="src/assets/me1-square.jpg"
+              src={userImg}
               className="rounded-full bg-cover bg-center"
               width={"40px"}
               alt=""
@@ -58,7 +59,7 @@ const UserMenu = () => {
             <div className="flex gap-1 justify-evenly">
               <img
                 width={"70px"}
-                src="src/assets/me1-square.jpg"
+                src={userImg}
                 className="rounded-full bg-cover bg-center"
                 alt="user-img"
               />

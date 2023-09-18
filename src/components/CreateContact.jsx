@@ -1,7 +1,7 @@
 import { Input, Loader, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   AiOutlineUser,
   AiOutlineMail,
@@ -125,15 +125,21 @@ const CreateContact = () => {
                 {...form.getInputProps("address")}
               />
             </div>
-            
 
-            <button
-              type="submit"
-              disabled={isLoading && true}
-              className=" h-10 flex items-center justify-center rounded bg-cyan-600 text-white transition hover:bg-cyan-400 hover:text-cyan-950 px-4 py-1"
-            >
-              {isLoading ? <Loader color="cyan" size="xs" /> : "Create"}
-            </button>
+            <div className="flex justify-center gap-2">
+              <Link to={"/"}>
+                <button className="border border-cyan-500 rounded px-5 py-1 text-cyan-500">
+                  Back
+                </button>
+              </Link>
+              <button
+                type="submit"
+                disabled={isLoading && true}
+                className="  flex items-center justify-center rounded bg-cyan-600 text-white transition hover:bg-cyan-400 hover:text-cyan-950 px-4 py-1"
+              >
+                {isLoading ? <Loader color="cyan" size="xs" /> : "Create"}
+              </button>
+            </div>
           </div>
         </div>
       </form>

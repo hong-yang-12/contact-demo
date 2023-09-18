@@ -5,6 +5,7 @@ import { BsArrowRightCircle } from "react-icons/bs";
 import { LuHeartHandshake } from "react-icons/lu";
 import { useRegisterMutation } from "../redux/api/authApi";
 import { useForm } from "@mantine/form";
+import registerGif from "../assets/juicy-hands-holding-gadgets-with-social-media.gif"
 import Swal from "sweetalert2";
 
 const Register = () => {
@@ -55,7 +56,7 @@ const Register = () => {
             </h1>
             <img
               className=" w-80 "
-              src="src/assets/juicy-hands-holding-gadgets-with-social-media.gif"
+              src={registerGif}
               alt=""
             />
             <div className="flex items-center text-sm text-cyan-50">
