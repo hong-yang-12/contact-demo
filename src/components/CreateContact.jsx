@@ -128,7 +128,7 @@ const CreateContact = () => {
 
             <div className="flex justify-center gap-2">
               <Link to={"/"}>
-                <button className="border border-cyan-500 rounded px-5 py-1 text-cyan-500">
+                <button className="border border-cyan-500 rounded px-5 py-1 text-cyan-500 hover:bg-cyan-600 hover:text-cyan-50">
                   Back
                 </button>
               </Link>

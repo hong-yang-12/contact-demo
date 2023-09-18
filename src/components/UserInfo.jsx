@@ -62,10 +62,14 @@ const UserInfo = () => {
         </p>
         <div className="flex gap-2">
           <Link to={"/"}>
-            <button className="border border-cyan-500 rounded px-5 py-1 text-cyan-500">Back</button>
+            <button className="border border-cyan-500 rounded px-5 py-1 text-cyan-500  hover:bg-cyan-600 hover:text-cyan-50">
+              Back
+            </button>
           </Link>
           <Link to={`/edit/${data?.contact?.id}`}>
-            <button className="bg-cyan-500 rounded px-5 py-1 text-white">Edit</button>
+            <button className="bg-cyan-500 hover:bg-cyan-400 hover:text-cyan-950 rounded px-5 py-1 text-white">
+              Edit
+            </button>
           </Link>
         </div>
       </div>
