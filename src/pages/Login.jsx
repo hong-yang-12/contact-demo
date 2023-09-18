@@ -8,6 +8,7 @@ import { FaRegSmileBeam } from "react-icons/fa";
 import { useLoginMutation } from "../redux/api/authApi";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/services/authSlice";
+import loginGif from "../assets/florid-remote-workflow.gif"
 import Swal from "sweetalert2";
 
 const Login = () => {
@@ -120,7 +121,7 @@ const Login = () => {
 
             <img
               className=" w-80 "
-              src="src\assets\florid-remote-workflow.gif"
+              src={loginGif}
               alt=""
             />
           </div>
