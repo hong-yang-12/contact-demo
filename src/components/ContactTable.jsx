@@ -98,21 +98,21 @@ const ContactTable = () => {
           <td>{contact?.email}</td>
           <td>{contact?.phone}</td>
           <td>{contact?.address}</td>
-          <td className="flex items-center gap-5">
-            <BsStar className="text-para" />
+          <td className="flex  items-center gap-5">
+            {/* <BsStar className="text-para" /> */}
             <Menu
               width={200}
               shadow="md"
               position="bottom-end"
               transitionProps={{ transition: "rotate-left", duration: 150 }}
             >
-              {/* <Button variant="outline" color="cyan">
-                  ...
-                </Button> */}
               <Menu.Target>
-                <p className="px-2 py-1 cursor-pointer select-none border border-para bg-background text-para rounded">
+                <Button variant="outline" color="cyan">
                   ...
-                </p>
+                </Button>
+                {/* <p className="px-2 py-1 cursor-pointer select-none border border-para bg-background text-para rounded">
+                  ...
+                </p> */}
               </Menu.Target>
 
               <Menu.Dropdown>
@@ -173,9 +173,10 @@ const ContactTable = () => {
             <th>Phone</th>
             <th>Address</th>
             <th>
-              <Button variant="subtle" color="cyan">
+              Options
+              {/* <Button variant="subtle" color="cyan">
                 Options
-              </Button>
+              </Button> */}
             </th>
           </tr>
         </thead>

@@ -12,7 +12,6 @@ const Dashboard = () => {
       <div className=" flex ">
         <Sidebar />
         <ContactTable />
-        
       </div>
     </div>
   );
